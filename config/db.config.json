@@ -1,12 +1,7 @@
 {
-  "secretary": {
+  "connection_1": {
     "host": "127.0.0.1",
     "username": "root",
     "password": "root"
-  },
-  "odd": {
-    "host": "db-odd",
-    "username": "snsetl_rw",
-    "password": "VabRaprewaw5"
   }
 }

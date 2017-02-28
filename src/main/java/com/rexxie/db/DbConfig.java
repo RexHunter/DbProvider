@@ -1,4 +1,5 @@
-package com.gameloft.db;
+package com.rexxie.db;
+
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -16,7 +17,7 @@ public class DbConfig {
     private String configPath;
     private Map<String, ConnectionReference> connections = new HashMap<>();
 
-    public DbConfig(String configPath) throws IOException {
+    public DbConfig(String configPath) {
         this.configPath = configPath;
         this.connections = loadConfigReferencesFromFile(this.configPath);
     }
@@ -37,11 +38,15 @@ public class DbConfig {
      *
      * @return HasMap with connections
      */
-    private Map<String, ConnectionReference> loadConfigReferencesFromFile(String filePath) throws IOException {
+    private Map<String, ConnectionReference> loadConfigReferencesFromFile(String filePath) {
 
         ObjectMapper objectMapper = new ObjectMapper();
-        connections = objectMapper.readValue(new File(filePath), new TypeReference<Map<String, ConnectionReference>>() {
-        });
+        try {
+            connections = objectMapper.readValue(new File(filePath), new TypeReference<Map<String, ConnectionReference>>() {
+            });
+        } catch (IOException e) {
+            logger.error(e.getMessage());
+        }
         return connections;
     }
 
